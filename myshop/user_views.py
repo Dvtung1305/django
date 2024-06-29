@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http.response import JsonResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from myshop.forms import RegistrationForm, LoginForm
@@ -51,6 +51,9 @@ def login_user(request):
         }
     )
 
+def logout_user(request):
+    logout(request)
+    return redirect('login_user')
 # Hàm phía server nhận từ Javascript gửi lên
 # JSON gửi từ JS <=> thì server cũng gửi lại JSON
 

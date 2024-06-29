@@ -17,7 +17,7 @@ urlpatterns = [
 
     re_path(r"^user/register$", user_views.register_user, name='register_user'),
     re_path(r"^user/login$", user_views.login_user, name='login_user'),
-    re_path(r"^user/logout$", auth_views.LogoutView.as_view(next_page='/'), name='logout_user'),
+    re_path(r"^user/logout$", user_views.logout_user, name='logout_user'),
     re_path(r"^user/validate$", user_views.validate_username, name='validate_username'),
     # re_path(r"^user/change$", user_views.change_password, name='change_password'),
     # re_path(r"^user/validate$", user_views.validate_username, name='validate_username'),

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http.response import JsonResponse
-from django.contrib.auth import authenticate, login, urls
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from myapp.forms import RegistrationForm, LoginForm
@@ -48,6 +48,10 @@ def login_user(request):
             'message': message
         }
     )
+
+def logout_user(request):
+    logout(request)
+    return redirect('login_user')
 
 def change_password(request):
     form = PasswordChangeForm(user=request.user)
