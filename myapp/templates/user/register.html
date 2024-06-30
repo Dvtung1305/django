@@ -1,63 +1,198 @@
-{% extends 'base/base_user.html' %}
-{% block title %}
-    Đăng ký Thông tin người dùng
-{% endblock title %}
-
+{% extends 'base/__base.html' %}
+<!---->
+{% block title %} ĐĂNG NHẬP {% endblock title %}
+<!---->
 {% block content %}
-    {% load static %}
-    <div class="container">
-        <div class="row">
-            <div class="col-8">
-                <img class="img-fluid" src="{% static 'images/django.png' %}" alt="">
-            </div>
-            <div class="col-4">
-                <form action="" method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group {% if field.errors %} is-invalid {% else %} is-valid {% endif %}">
-                            {{ field.label }}
-                            {{ field }}
-                            {% if field.errors %}
-                                {% for error in field.errors %}
-                                    <div style="display:block" class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign In">
-                </form>
-            </div>
-        </div>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+    background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg"),
+      #000;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .wrapper {
+    width: 400px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin: 15px 0;
+  }
+
+  .input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+  }
+
+  .input-field input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+  }
+
+  .forget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 0 35px 0;
+    color: #fff;
+  }
+
+  #remember {
+    accent-color: #fff;
+  }
+
+  .forget label {
+    display: flex;
+    align-items: center;
+  }
+
+  .forget label p {
+    margin-left: 8px;
+  }
+
+  .wrapper a {
+    color: #efefef;
+    text-decoration: none;
+  }
+
+  .wrapper a:hover {
+    text-decoration: underline;
+  }
+
+  button {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+    margin-top: 20px;
+  }
+
+  button:hover {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .register {
+    text-align: center;
+    margin-top: 30px;
+    color: #fff;
+  }
+
+  /* Ẩn footer */
+  footer {
+    display: none;
+  }
+</style>
+
+<div class="container">
+  {% load static %}
+  <div class="row">
+    <div class="col-sm-8">
+      <img
+        class="img-fluid"
+        src="{% static 'images/django.png' %}"
+        alt=""
+        width="100%" />
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $("#id_username").change(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'validate_username'%}",
-                    data: {
-                        username: $(this).val(),
-                        csrfmiddlewaretoken: "{{ csrf_token }}"
-                    },
-                    success: function(data) {
-                        $("#id_username").addClass('is-valid').removeClass('is-invalid');
-                        $("#id_username").parent().find("div").remove();
-                        $("#id_username").parent().append(`<div class='valid-feedback'>${data.message}</div>`);
-                    },
-                    error: function(xhr, testStatus, errorThrown) {
-                        $("#id_username").addClass('is-invalid').removeClass('is-valid');
-                        $("#id_username").parent().find("div").remove();
-                        $("#id_username").parent().append(`<div class='invalid-feedback'>${xhr.responseJSON.message}</div>`);
-                    }
-                })
-                });
-            }); 
-    </script>
-
+    <div class="col-sm-4">
+      {% if message %}
+      <h1 style="color: red">{{ message }}</h1>
+      {% endif %}
+      <div class="wrapper">
+        <form action="#" method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          <div class="input-field">
+            <input
+              type="email"
+              id="id_email"
+              name="email"
+              class="form-control"
+              required />
+            <label for="id_email">Nhập địa chỉ email của bạn:</label>
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              id="id_password"
+              name="password"
+              class="form-control"
+              required />
+            <label for="id_password">Nhập mật khẩu của bạn:</label>
+          </div>
+          <div class="forget">
+            <label for="remember">
+              <input type="checkbox" id="remember" />
+              <span>Ghi nhớ đăng nhập</span>
+            </label>
+            <a href="#">Quên mật khẩu?</a>
+          </div>
+          <button type="submit">Đăng nhập</button>
+        </form>
+        <p>
+          Bạn chưa có tài khoản?
+          <a href="{% url 'register_user' %}">Đăng ký ngay</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
-    
