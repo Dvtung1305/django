@@ -1,32 +1,120 @@
 {% extends 'base/__base.html' %}
-{% block title %}
-    Đăng Nhập Hệ Thống
-{% endblock title %}
+<!---->
+{% block title %} Đăng Nhập {% endblock title %}
+<!---->
 
 {% block content %}
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
 
-    <div class="container">
-        {% load static %}
-        <div class="row">
-            <div class="col-sm-8">
-                <img class="img-fluid" src="{% static 'images/django.png' %}" alt="" width="100%">
-            </div>
-            <div class="col-sm-4">
-                {% if message %}
-                    <h1 style="color: red">{{message}}</h1>
-                {% endif %}
-                <form action="" method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group {% if field.errors %} is-invalid {% else %} is-valid {% endif %}">
-                            {{ field.label }}
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                    <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign In">
-                </form>
-                <p>Bạn chưa có tài zzkhoản <a href="{% url 'register_user' %}">Bấm vào đây để tạo</a></p>
-            </div>
-        </div>
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+    background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg"),
+      #000;
+    background-position: center;
+    background-size: cover;
+  }
+
+  header {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+  p {
+    margin: 10px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .wrapper {
+    width: 400px;
+    border-radius: 8px;
+    padding: 30px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin-top: 10px;
+  }
+
+  .input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+
+  input {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+    margin-top: 15px;
+  }
+
+  input:hover {
+    color: #fff;
+
+    background: rgba(255, 255, 255, 0.15);
+  }
+</style>
+<div class="container">
+  {% load static %}
+  <div class="wrapper">
+    {% if message %}
+    <h2 style="color: red">{{ message }}</h2>
+    {% endif %}
+    <form action="#" method="post" class="needs-validation" novalidate>
+      {% csrf_token %}
+      <!--form-->
+      {% for field in form %}
+      <div
+        class="input-field {% if field.errors %} is-invalid {% else %} is-valid {% endif %}">
+        {{ field.label }} {{ field }}
+      </div>
+      {% endfor %}
+
+      <input type="submit" value="Đăng nhập" />
+    </form>
+
+    <p>
+      Bạn chưa có tài khoản?
+      <a href="{% url 'register_user' %}">Đăng ký</a>
+    </p>
+  </div>
 </div>
 {% endblock content %}

@@ -1,34 +1,122 @@
 {% extends 'base/__base.html' %}
 {% block title %}
-    Đăng ký Thông tin người dùng
+    Đăng ký 
 {% endblock title %}
 
 {% block content %}
+    <style>
+     @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+  
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 0 10px;
+        background: url("https://www.codingnepalweb.com/demos/create-glassmorphism-login-form-html-css/hero-bg.jpg"),
+        #000;
+        background-position: center;
+        background-size: cover;
+     }
+  
+    header {
+      display: none;
+    }
+  
+    footer {
+      display: none;
+    }
+    p {
+      margin: 10px;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+       
+    }
+  
+    .wrapper {
+      width: 400px;
+      border-radius: 8px;
+      padding: 30px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+  
+    .input-field {
+      position: relative;
+      border-bottom: 2px solid #ccc;
+      margin-top: 10px;
+    }
+  
+    .input-field {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+  
+    input {
+      background: #fff;
+      color: #000;
+      font-weight: 600;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 16px;
+      border: 2px solid transparent;
+      transition: 0.3s ease;
+      margin-top: 10px;
+    }
+  
+    input:hover {
+      color: #fff;
+  
+      background: rgba(255, 255, 255, 0.15);
+    }
+  </style>
     {% load static %}
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <img class="img-fluid" src="{% static 'images/django.png' %}" alt="" width="100%">
-            </div>
-            <div class="col-sm-4">
-                <form action="" method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group {% if field.errors %} is-invalid {% else %} is-valid {% endif %}">
-                            {{ field.label }}
-                            {{ field }}
-                            {% if field.errors %}
-                                {% for error in field.errors %}
-                                    <div style="display:block" class="invalid-feedback">
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+        <div class="wrapper">
+            <form action="" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-field {% if field.errors %} is-invalid {% else %} is-valid {% endif %}">
+                        {{ field.label }}
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <div style="display:block" class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                     {% endfor %}
-                    <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign Up">
-                </form>
-            </div>
+                    <input type="submit" value="Đăng Ký">
+                    
+            </form>
+            <p>
+                Bạn đã có tài khoản?
+                <a href="{% url 'login_user' %}">Đăng Nhập</a>
+            </p>
         </div>
     </div>
 
